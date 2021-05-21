@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  remote_user: root
+  vars:
+    cs_bouncers:
+      cs-firewall-bouncer:
+        version: v0.0.12
+  roles:
+    - ../../ansible-role-crowdsec

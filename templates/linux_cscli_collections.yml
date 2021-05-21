@@ -1,0 +1,27 @@
+---
+{{- /*
+ cscli collections upgrade --all
+INFO[21-05-2021 10:43:41 AM] crowdsecurity/apache2 : up-to-date
+INFO[21-05-2021 10:43:41 AM] crowdsecurity/linux : up-to-date
+INFO[21-05-2021 10:43:41 AM] crowdsecurity/base-http-scenarios : up-to-date
+INFO[21-05-2021 10:43:41 AM] crowdsecurity/sshd : up-to-date
+INFO[21-05-2021 10:43:41 AM] All collections are already up-to-date
+INFO[21-05-2021 10:43:41 AM] Run 'sudo systemctl reload crowdsec' for the new configuration to be effective.
+
+
+# cscli collections list
+------------------------------------------------------------------------------------------------------------
+NAME                               📦 STATUS   VERSION  LOCAL PATH
+------------------------------------------------------------------------------------------------------------
+ crowdsecurity/apache2              ✔️  enabled  0.1      /etc/crowdsec/collections/apache2.yaml
+ crowdsecurity/base-http-scenarios  ✔️  enabled  0.4      /etc/crowdsec/collections/base-http-scenarios.yaml
+ crowdsecurity/linux                ✔️  enabled  0.2      /etc/crowdsec/collections/linux.yaml
+ crowdsecurity/sshd                 ✔️  enabled  0.1      /etc/crowdsec/collections/sshd.yaml
+------------------------------------------------------------------------------------------------------------ 
+*/ -}}
+- example: INFO[21-05-2021 10:43:41 AM] crowdsecurity/apache2 : up-to-date
+  getval: 'INFO[(?P<date>\S+)] (?P<collection>\S+) : (?P<state>\S+)'
+  result:
+    "{{ collection }}":
+      state: "{{ state }}"
+  shared: true

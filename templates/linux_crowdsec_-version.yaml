@@ -1,0 +1,15 @@
+{{- /*
+2021/05/21 11:23:40 version: v1.0.13-3-debian-pragmatic-a19f13ab45a18024ad7ddbf38ef2ff4aadeaaaf5
+2021/05/21 11:23:40 Codename: alphaga
+2021/05/21 11:23:40 BuildDate: 2021-04-28_08:48:24
+2021/05/21 11:23:40 GoVersion: 1.15.8
+2021/05/21 11:23:40 Constraint_parser: >= 1.0, <= 2.0
+2021/05/21 11:23:40 Constraint_scenario: >= 1.0, < 3.0
+2021/05/21 11:23:40 Constraint_api: v1
+2021/05/21 11:23:40 Constraint_acquis: >= 1.0, < 2.0 
+*/ -}}
+
+- example: '2021/05/21 11:23:40 version: v1.0.13-3-debian-pragmatic-a19f13ab45a18024ad7ddbf38ef2ff4aadeaaaf5'
+  getval: '(?P<date>\S+) (?P<time>\S+) version: (?P<version>\S+)'
+  result:
+    cs_agent_version_current: "{{ version }}"

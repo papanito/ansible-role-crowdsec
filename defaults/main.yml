@@ -1,0 +1,21 @@
+---
+# defaults file for papanito.crowdsec
+# https://github.com/crowdsecurity/crowdsec/releases/download/v1.0.13/
+cs_download_baseurl: https://github.com/crowdsecurity/crowdsec/releases/download/
+cs_tarball: crowdsec-release.tgz
+cs_install_target_dir: /var/tmp
+cs_config_file_base: /etc/crowdsec
+cs_install_dir_agent: /usr/local/bin/
+cs_install_dir_bouncer: /usr/local/bin
+
+## configuration for default bouncers
+cs_bouncers_official:
+  cs-firewall-bouncer:
+    base_url: https://github.com/crowdsecurity/cs-firewall-bouncer/releases/download/
+    tarball: cs-firewall-bouncer.tgz
+  cs-nginx-bouncer:
+    base_url: https://github.com/crowdsecurity/cs-nginx-bouncer/releases/download/
+    tarball: cs-nginx-bouncer.tgz
+  cs-custom-bouncer:
+    base_url: https://github.com/crowdsecurity/cs-custom-bouncer/releases/download/
+    tarball: cs-custom-bouncer.tgz

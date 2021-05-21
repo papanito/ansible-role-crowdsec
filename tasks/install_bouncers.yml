@@ -1,0 +1,26 @@
+- name: "Check if bouncer {{ cs_bouncer }} is installed"
+  ansible.builtin.stat:
+    path: "{{ cs_install_dir_bouncer }}/{{ cs_bouncer }}"
+  register: bouncer_stat
+
+- name: Check if crowdsec agent is installed and return version
+  ansible.utils.cli_parse:
+    command: crowdsec -version
+    parser:
+      name: ansible.netcommon.native
+      template_path: cs-version.yml
+    set_fact: crowdsec_version
+  when: bouncer_stat.stat.exists
+
+- name: Unarchive {{ cs_download_baseurl }}/{{ cs_agent_version }}/{{ cs_tarball }} to {{ cs_install_target_dir }}
+  ansible.builtin.unarchive:
+    src: "{{ cs_download_baseurl }}/{{ cs_agent_version }}/{{ cs_tarball }}"
+    dest: "{{ cs_install_target_dir }}"
+    keep_newer: yes
+    remote_src: yes
+  when: not bouncer_stat.stat.exists # or version differs
+
+- name: Install crowdsec in unattended mode
+  ansible.builtin.command: "{{ cs_install_target_dir }}/crowdsec-{{ cs_agent_version }}/wizard.sh --unattended"
+  register: install_output
+

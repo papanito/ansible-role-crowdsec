@@ -1,0 +1,5 @@
+---
+# vars file for papanito.crowdsec
+
+cs_install_agent: true
+cs_agent_version: v1.0.13

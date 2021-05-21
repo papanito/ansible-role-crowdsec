@@ -1,0 +1,23 @@
+---
+# tasks file for papanito.crowdsec
+
+- name: Install crowdsec agent (Debian)
+  import_tasks: install_debian.yml
+  when: cs_install_agent|bool == true and ansible_os_family == 'Debian'
+  tags:
+    - agent
+
+- name: Install crowdsec agent (Non-Debian)
+  import_tasks: install_tarball.yml
+  when: cs_install_agent|bool == true and ansible_os_family != 'Debian'
+  tags:
+    - agent
+
+- name: Install bouncers
+  include_tasks: install_bouncers.yml
+  loop: "{{ cs_bouncers | dict2items }}"
+  loop_control:
+    loop_var: cs_bouncer
+  when: cs_bouncers
+  tags:
+    - bouncers

@@ -1,0 +1,28 @@
+galaxy_info:
+  role_name: crowdsec
+  namespace: papanito
+  author: Adrian Wyssmann
+  description: Ansible role to install crowdsec agent and bouncers
+  company: wyssmann.com
+  license: Apache
+  issue_tracker_url: https://github.com/papanito/ansible-role-crowdsec/issues
+
+  min_ansible_version: 2.0
+
+  platforms:
+  - name: EL
+    versions:
+    - all
+  - name: Ubuntu
+    versions:
+    - all
+  - name: Debian
+    versions:
+    - all
+
+  galaxy_tags:
+    - security
+    - infrastructure
+    - sysadmin
+
+dependencies: []

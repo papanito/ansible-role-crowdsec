@@ -1,0 +1,17 @@
+- name: add crowdsec apt-key
+  apt_key: 
+    url: https://s3-eu-west-1.amazonaws.com/crowdsec.debian.pragmatic/crowdsec.asc
+    state: present
+
+- name: add crowdsec apt repository
+  apt_repository: 
+    repo: https://s3-eu-west-1.amazonaws.com/crowdsec.debian.pragmatic/{{ ansible_distribution_release }} {{ ansible_distribution_release }} main
+    state: present 
+    filename: crowdsec
+    update_cache: yes
+
+- name: install crowdsec
+  apt: 
+    name: crowdsec
+    state: present
+    update_cache: yes
