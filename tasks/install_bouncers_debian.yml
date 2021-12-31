@@ -1,0 +1,5 @@
+- name: install bouncer {{ cs_bouncer }}
+  apt: 
+    name: cs_bouncer
+    state: present
+    update_cache: yes

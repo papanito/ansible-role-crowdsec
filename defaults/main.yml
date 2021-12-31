@@ -13,6 +13,7 @@ cs_bouncers_official:
   cs-firewall-bouncer:
     base_url: https://github.com/crowdsecurity/cs-firewall-bouncer/releases/download/
     tarball: cs-firewall-bouncer.tgz
+    deb: crowdsec-firewall-bouncer-iptables
   cs-nginx-bouncer:
     base_url: https://github.com/crowdsecurity/cs-nginx-bouncer/releases/download/
     tarball: cs-nginx-bouncer.tgz

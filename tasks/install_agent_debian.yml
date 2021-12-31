@@ -1,11 +1,12 @@
 - name: add crowdsec apt-key
   apt_key: 
-    url: https://s3-eu-west-1.amazonaws.com/crowdsec.debian.pragmatic/crowdsec.asc
+    url: https://packagecloud.io/crowdsec/crowdsec/gpgkey
     state: present
 
+# https://packagecloud.io/crowdsec/crowdsec/install#manual-deb
 - name: add crowdsec apt repository
   apt_repository: 
-    repo: https://s3-eu-west-1.amazonaws.com/crowdsec.debian.pragmatic/{{ ansible_distribution_release }} {{ ansible_distribution_release }} main
+    repo: deb https://packagecloud.io/crowdsec/crowdsec/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
     state: present 
     filename: crowdsec
     update_cache: yes

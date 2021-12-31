@@ -2,26 +2,37 @@
 # tasks file for papanito.crowdsec
 
 - name: Install crowdsec agent (Debian)
-  import_tasks: install_debian.yml
+  import_tasks: install_agent_debian.yml
   when: cs_install_agent|bool == true and ansible_os_family == 'Debian'
   tags:
     - agent
 
 - name: Install crowdsec agent (Non-Debian)
   import_tasks: install_tarball.yml
-  when: cs_install_agent|bool == true and ansible_os_family != 'Debian'
+  when: cs_install_agent|bool == true and ansible_os_family != 'Debian' and ansible_os_family != 'Redhat'
   tags:
     - agent
+
+- name: Enroll instance to console
+  ansible.builtin.command: "cscli console enroll {{ cs_console_token }}"
+  when: cs_console_token is defined
+  tags:
+    - console
+
+- name: Install bouncers
+  include_tasks: install_bouncers_debian.yml
+  loop: "{{ cs_bouncers | dict2items }}"
+  loop_control:
+    loop_var: cs_bouncer
+  when: cs_bouncers is defined and ansible_os_family == 'Debian'
+  tags:
+    - bouncers
 
 - name: Install bouncers
   include_tasks: install_bouncers.yml
   loop: "{{ cs_bouncers | dict2items }}"
   loop_control:
     loop_var: cs_bouncer
-  when: cs_bouncers
+  when: cs_bouncers is defined and ansible_os_family != 'Debian'
   tags:
     - bouncers
-
-- name: Enroll instance to console
-  ansible.builtin.command: "sudo cscli console enroll {{ cs_console_token }}"
-  when: cs_console_token is defined
