@@ -5,7 +5,7 @@
   pre_tasks:
   - name: Create a basic test server
     hetzner.hcloud.hcloud_server:
-      name: ansible-test
+      name: ansible-debian
       server_type: cx11
       image: debian-10
       state: started
@@ -27,14 +27,43 @@
       delay: 2
     delegate_to: localhost
 
-- hosts: ansible-test
+  - name: Create a basic test server
+    hetzner.hcloud.hcloud_server:
+      name: ansible-rocky
+      server_type: cx11
+      image: rocky-8
+      state: started
+      ssh_keys: 
+        - ansible-user
+        - aedu-clawfinger
+      api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
+    delegate_to: localhost
+    register: result
+
+  - name: Refresh inventory after adding machines
+    meta: refresh_inventory
+
+  - name: Store ipv4 of host
+    set_fact:
+      test_server_ipv4: "{{ result.hcloud_server.ipv4_address }}"
+
+  - name: Waits until server is ready
+    wait_for:
+      host: "{{ test_server_ipv4 }}"
+      port: 22
+      delay: 2
+    delegate_to: localhost
+
+- hosts: hcloud
   remote_user: root
   vars:
     cs_bouncers:
       cs-firewall-bouncer:
-        version: v0.0.12
+        version: v0.0.21
   roles:
     - ansible-role-crowdsec
+  tags:
+    - role
 
 - hosts: localhost
   gather_facts: no
@@ -44,7 +73,13 @@
   pre_tasks:
   - name: Shutdown test server
     hcloud_server:
-      name: ansible-test
+      name: ansible-debian
+      state: stopped
+    delegate_to: localhost
+    when: stop_server is defined and stop_server
+  - name: Shutdown test server
+    hcloud_server:
+      name: ansible-rocky
       state: stopped
     delegate_to: localhost
     when: stop_server is defined and stop_server

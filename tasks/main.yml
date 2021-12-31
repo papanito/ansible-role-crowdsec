@@ -7,9 +7,15 @@
   tags:
     - agent
 
-- name: Install crowdsec agent (Non-Debian)
-  import_tasks: install_tarball.yml
-  when: cs_install_agent|bool == true and ansible_os_family != 'Debian' and ansible_os_family != 'Redhat'
+- name: Install crowdsec agent (Enterprise Linux)
+  import_tasks: install_agent_rhel.yml
+  when: cs_install_agent|bool == true and ansible_os_family == 'RedHat'
+  tags:
+    - agent
+
+- name: Install crowdsec agent (tarball)
+  import_tasks: install_agent_tarball.yml
+  when: cs_install_agent|bool == true and ansible_os_family != 'Debian' and ansible_os_family != 'RedHat'
   tags:
     - agent
 

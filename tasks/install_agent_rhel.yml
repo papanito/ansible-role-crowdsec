@@ -1,0 +1,23 @@
+- name: install required packages
+  yum:
+    name:
+    - pygpgme
+    - yum-utils
+
+    state: present
+
+# https://packagecloud.io/crowdsec/crowdsec/install#manual-deb
+- name: add crowdsec apt repository
+  yum_repository:
+    name: crowdsec
+    description: crowdsec repository
+    gpgkey: https://packagecloud.io/crowdsec/crowdsec/gpgkey
+    baseurl: https://packagecloud.io/crowdsec/crowdsec/el/$releasever/$basearch/
+    state: present
+    file: crowdsec
+
+- name: install crowdsec
+  dnf: 
+    name: crowdsec
+    state: present
+    update_cache: yes
