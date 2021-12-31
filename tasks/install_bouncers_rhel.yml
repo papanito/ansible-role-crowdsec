@@ -1,5 +1,5 @@
 - name: install bouncer {{ cs_bouncer.key }}
-  apt: 
+  yum: 
     name: "{{ cs_bouncers_official[cs_bouncer.key].deb }}"
     state: present
     update_cache: yes

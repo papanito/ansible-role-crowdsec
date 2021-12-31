@@ -4,6 +4,6 @@
   vars:
     cs_bouncers:
       cs-firewall-bouncer:
-        version: v0.0.12
+        version: v0.0.21
   roles:
     - ansible-role-crowdsec

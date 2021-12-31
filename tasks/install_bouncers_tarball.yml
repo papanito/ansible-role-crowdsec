@@ -12,5 +12,6 @@
 #     set_fact: crowdsec_version
 #   when: bouncer_stat.stat.exists
 
-- debug:
+- name: Install bouncer {{ cs_bouncer }} (tarball)
+  debug:
     msg: "TBD"

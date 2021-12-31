@@ -1,19 +1,9 @@
 # Ansible role "papanito.crowdsec" <!-- omit in toc -->
 
-![Ansible Role](https://img.shields.io/ansible/role/46965) ![Ansible Quality Score](https://img.shields.io/ansible/quality/46965) ![Ansible Role](https://img.shields.io/ansible/role/d/46965) ![GitHub issues](https://img.shields.io/github/issues/papanito/ansible-role-crowdsec) ![GitHub pull requests](https://img.shields.io/github/issues-pr/papanito/ansible-role-crowdsec)
+[![Ansible Role](https://img.shields.io/ansible/role/46965)](https://galaxy.ansible.com/papanito/cloudflared) [![Ansible Quality Score](https://img.shields.io/ansible/quality/46965)](https://galaxy.ansible.com/papanito/cloudflared) [![Ansible Role](https://img.shields.io/ansible/role/d/46965)](https://galaxy.ansible.com/papanito/cloudflared) [![GitHub issues](https://img.shields.io/github/issues/papanito/ansible-role-crowdsec)](https://github.com/papanito/ansible-role-crowdsec/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/papanito/ansible-role-crowdsec)](https://github.com/papanito/ansible-role-crowdsec/pulls)
 
-- [Role Details](#role-details)
-  - [Installation](#installation)
-- [Requirements](#requirements)
-- [Role Variables](#role-variables)
-  - [Bouncers](#bouncers)
-- [Dependencies](#dependencies)
-- [Testing](#testing)
-- [Example Playbook](#example-playbook)
-- [License](#license)
-- [Author Info](#author-info)
 
-Ansible role to install [crowdsec][growdsec-git] or specifically the [crowdsec-agent][crowdsec-git] and [bouncers][crowdsec-hub] (**TBI**)
+Ansible role to install [crowdsec][growdsec-git] or specifically the [crowdsec-agent][crowdsec-git] and [bouncers][crowdsec-hub]
 
 - [Crowdsec-agent][crowdsec-git] is an open-source and lightweight software that allows you to detect peers with malevolent behaviors and block them from accessing your systems at various level (infrastructural, system, applicative)
 - [Bouncers][bouncers] are standalone software pieces in charge of acting upon a decision taken by crowdsec : block an IP, present a captcha, enforce MFA on a given user, etc.
@@ -28,8 +18,10 @@ In addition it let's you install (and remove)
 
 There are [different installation options][installation] and the role will do the following
 
-- on debian systems it installs the package from the repo
+- on debian or rhel systems it installs the package from the repo
 - for all others, it installs it from [tarball](https://doc.crowdsec.net/Crowdsec/v1/getting_started/installation/#using-the-unattended-wizard)
+
+> Tarball installtion does currently not work. I plan to enable this asap, but this requires to consider a proper update mechanism (see open issues)
 
 ## Requirements
 
@@ -48,12 +40,15 @@ There are common role variables and service specific ones. Most variables should
 
 ### Bouncers
 
-The installation process for [bouncers] differs. Thus for now I choose to only install "official" bouncers which are usually installed as follows
+The installation process for [bouncers] differs. Thus
 
-```bash
-$ tar xzvf cs-firewall-bouncer.tgz
-$ sudo ./install.sh
-```
+- for debian or rhel install the bouncer from the repo (if awailable)
+- for any other case install from tarball, which are usually installed as follows
+
+   ```bash
+   $ tar xzvf cs-firewall-bouncer.tgz
+   $ sudo ./install.sh
+   ```
 
 One has to define `cf_bouncers` which contains the bouncer name and the version to be installed:
 
@@ -66,17 +61,23 @@ cs_bouncers:
 The following bouncers are supported:
 
 - [cs-firewall-bouncer](https://hub.crowdsec.net/author/crowdsecurity/bouncers/cs-firewall-bouncer)
-- [cs-nginx-bouncer](https://hub.crowdsec.net/author/crowdsecurity/bouncers/cs-nginx-bouncer)
-- [cs-custom-bouncer](https://hub.crowdsec.net/author/crowdsecurity/bouncers/cs-custom-bouncer)
+- [cs-nginx-bouncer](https:/hub.crowdsec.net/author/crowdsecurity/bouncers/cs-nginx-bouncer)
+<!-- [cs-custom-bouncer](https://hub.crowdsec.net/author/crowdsecurity/bouncers/cs-custom-bouncer) -->
 
-
+If your are missing something, please check the open issues and create one if necessary.
 ## Dependencies
 
 n/a
 
 ## Testing
 
-TBD
+I use [Hetzner Cloud](https://console.hetzner.cloud) for testing hence you can use this play
+
+```bash
+ansible-playbook tests/test.install.both.yml -e cs_console_token=XXXX
+```
+
+For this to work, export `HCLOUD_TOKEN`.
 
 ## Example Playbook
 
