@@ -25,7 +25,7 @@
   tags:
     - console
 
-- name: Install bouncers
+- name: Install bouncers (Debian)
   include_tasks: install_bouncers_debian.yml
   loop: "{{ cs_bouncers | dict2items }}"
   loop_control:
@@ -34,11 +34,21 @@
   tags:
     - bouncers
 
-- name: Install bouncers
+- name: Install bouncers (RedHat)
+  include_tasks: install_bouncers_rhel.yml
+  loop: "{{ cs_bouncers | dict2items }}"
+  loop_control:
+    loop_var: cs_bouncer
+  when: cs_bouncers is defined and ansible_os_family == 'RedHat'
+  tags:
+    - bouncers
+
+
+- name: Install bouncers (tarball)
   include_tasks: install_bouncers.yml
   loop: "{{ cs_bouncers | dict2items }}"
   loop_control:
     loop_var: cs_bouncer
-  when: cs_bouncers is defined and ansible_os_family != 'Debian'
+  when: cs_bouncers is defined and ansible_os_family != 'Debian' and ansible_os_familiy != 'RedHat'
   tags:
     - bouncers
