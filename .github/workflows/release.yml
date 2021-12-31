@@ -4,25 +4,11 @@ on:
   push:
     tags:
       - 'v*.*.*'
+  workflow_run:
+    workflows: ["Ansible lint"]
+    types: [completed]
 
 jobs:
-  build:
-    name: Ansible linting
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Lint Ansible Playbook
-      uses: ansible/ansible-lint-action@master
-      with:
-        targets: "**/*.yml"
-    - name: Install Dependencies
-      run: pip install ansible
-    - name: Create ansible.cfg with correct roles_path
-      run: printf '[defaults]\nroles_path=../:./' >ansible.cfg
-    - name: Run ansible syntax-check
-      run: ansible-playbook tests/test.yml -i tests/inventory --syntax-check
-
   prepare-release:
     name: Prepare Release
     runs-on: ubuntu-latest
@@ -40,10 +26,10 @@ jobs:
       - name: Set current version
         run: echo $RELEASE_VERSION > ./VERSION
       - name: Create changelog
-        run: auto-changelog --ignore-commit-pattern "\[?ci|docu|meta\]?|fixup"
+        run: auto-changelog --ignore-commit-pattern "\[?ci|docu|Merge|meta\]?|fixup" --release-summary 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: "[meta] Update changelog, bump version"
+          commit_message: "meta: Update changelog, bump version"
           file_pattern: ./VERSION ./CHANGELOG.md
           commit_user_name: My GitHub Actions Bot
           commit_user_email: ci@wyssmann.com
@@ -61,7 +47,7 @@ jobs:
       - name: Install auto-changelog
         run: sudo npm install -g auto-changelog
       - name: Create release notes
-        run: auto-changelog --ignore-commit-pattern "\[?ci|docu|meta\]?|fixup" --starting-version $RELEASE_VERSION -o RELEASENOTES.md
+        run: auto-changelog --ignore-commit-pattern "\[?ci|docu|meta\]?|fixup" --starting-version $RELEASE_VERSION -o RELEASENOTES.md --release-summary 
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -73,8 +59,7 @@ jobs:
           body_path: ./RELEASENOTES.md
           draft: false
           prerelease: false
-    needs: 
-    - build
+    needs:
     - prepare-release
 
   import-role:
