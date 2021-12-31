@@ -1,9 +1,50 @@
 ---
 - hosts: localhost
+  gather_facts: no
+
+  pre_tasks:
+  - name: Create a basic test server
+    hetzner.hcloud.hcloud_server:
+      name: ansible-test
+      server_type: cx11
+      image: debian-10
+      state: started
+      ssh_keys: 
+        - ansible-user
+        - aedu-clawfinger
+      api_token: "{{ lookup('env', 'HCLOUD_TOKEN') }}"
+    delegate_to: localhost
+    register: result
+
+  - name: Store ipv4 of host
+    set_fact:
+      test_server_ipv4: "{{ result.hcloud_server.ipv4_address }}"
+
+  - name: Waits until server is ready
+    wait_for:
+      host: "{{ test_server_ipv4 }}"
+      port: 22
+      delay: 2
+    delegate_to: localhost
+
+- hosts: ansible-test
   remote_user: root
   vars:
     cs_bouncers:
       cs-firewall-bouncer:
         version: v0.0.12
   roles:
-    - ../../ansible-role-crowdsec
+    - ansible-role-crowdsec
+
+- hosts: localhost
+  gather_facts: no
+  vars:
+    stop_server: false
+
+  pre_tasks:
+  - name: Shutdown test server
+    hcloud_server:
+      name: ansible-test
+      state: stopped
+    delegate_to: localhost
+    when: stop_server is defined and stop_server

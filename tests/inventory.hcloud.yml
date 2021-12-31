@@ -1,0 +1,19 @@
+plugin: hcloud
+keyed_groups:
+  - key: location
+    prefix: hcloud_location
+  - key: image_os_flavor
+    separator: ""
+  - key: status
+    prefix: server_status
+  - key: labels
+    separator: ""
+compose:
+  server_ipv4: ipv4
+  server_ipv6: ipv6
+
+cache: yes
+cache_plugin: ansible.builtin.jsonfile
+cache_timeout: 7200
+cache_connection: /tmp/ansible/hcloud_inventory
+cache_prefix: hcloud
