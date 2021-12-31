@@ -21,3 +21,7 @@
   when: cs_bouncers
   tags:
     - bouncers
+
+- name: Enroll instance to console
+  ansible.builtin.command: "sudo cscli console enroll {{ cs_console_token }}"
+  when: cs_console_token is defined

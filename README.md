@@ -44,6 +44,7 @@ There are common role variables and service specific ones. Most variables should
 |`cs_install_agent`|Whether to install the crowdsec agent|`true`|
 |`cs_agent_version`|Version of the crowdsec agent to install|`v1.0.13`|
 |`cs_bouncers`|Dictionary of bouncers to be installed|`-`|
+|`cs_console_token`|Token to register instance in [Crowdstrike Console](https://app.crowdsec.net)|`-`|
 
 ### Bouncers
 
