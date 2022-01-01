@@ -4,11 +4,26 @@ on:
   push:
     tags:
       - 'v*.*.*'
-  workflow_run:
-    workflows: ["Ansible lint"]
-    types: [completed]
 
 jobs:
+  build:
+    name: Ansible lint
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Lint Ansible Playbook
+      uses: ansible/ansible-lint-action@master
+      with:
+        targets: "**/*.yml"
+        override-deps: |
+          ansible-lint==5.3.1
+    - name: Install Dependencies
+      run: pip install ansible
+    - name: Create ansible.cfg with correct roles_path
+      run: printf '[defaults]\nroles_path=../:./' >ansible.cfg
+    - name: Run ansible syntax-check
+      run: ansible-playbook tests/test.install.both.yml -i tests/inventory --syntax-check
+
   prepare-release:
     name: Prepare Release
     runs-on: ubuntu-latest
@@ -59,7 +74,8 @@ jobs:
           body_path: ./RELEASENOTES.md
           draft: false
           prerelease: false
-    needs:
+    needs: 
+    - build
     - prepare-release
 
   import-role:
