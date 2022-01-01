@@ -48,6 +48,6 @@
   loop: "{{ cs_bouncers | dict2items }}"
   loop_control:
     loop_var: cs_bouncer
-  when: cs_bouncers is defined and ansible_os_family != 'Debian' and ansible_os_familiy != 'RedHat'
+  when: cs_bouncers is defined and ansible_os_family != 'Debian' and ansible_os_family != 'RedHat'
   tags:
     - bouncers
