@@ -1,9 +1,9 @@
 # Ansible role "papanito.crowdsec" <!-- omit in toc -->
 
-[![Ansible Role](https://img.shields.io/ansible/role/46965)](https://galaxy.ansible.com/papanito/cloudflared) [![Ansible Quality Score](https://img.shields.io/ansible/quality/46965)](https://galaxy.ansible.com/papanito/cloudflared) [![Ansible Role](https://img.shields.io/ansible/role/d/46965)](https://galaxy.ansible.com/papanito/cloudflared) [![GitHub issues](https://img.shields.io/github/issues/papanito/ansible-role-crowdsec)](https://github.com/papanito/ansible-role-crowdsec/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/papanito/ansible-role-crowdsec)](https://github.com/papanito/ansible-role-crowdsec/pulls)
+[![Ansible Role](https://img.shields.io/ansible/role/57402)](https://galaxy.ansible.com/papanito/cloudflared) [![Ansible Quality Score](https://img.shields.io/ansible/quality/57402)](https://galaxy.ansible.com/papanito/cloudflared) [![Ansible Role](https://img.shields.io/ansible/role/d/57402)](https://galaxy.ansible.com/papanito/cloudflared) [![GitHub issues](https://img.shields.io/github/issues/papanito/ansible-role-crowdsec)](https://github.com/papanito/ansible-role-crowdsec/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/papanito/ansible-role-crowdsec)](https://github.com/papanito/ansible-role-crowdsec/pulls)
 
 
-Ansible role to install [crowdsec][growdsec-git] or specifically the [crowdsec-agent][crowdsec-git] and [bouncers][crowdsec-hub]
+Ansible role to install [crowdsec][crowdsec-git] or specifically the [crowdsec-agent][crowdsec-git] and [bouncers][crowdsec-hub]
 
 - [Crowdsec-agent][crowdsec-git] is an open-source and lightweight software that allows you to detect peers with malevolent behaviors and block them from accessing your systems at various level (infrastructural, system, applicative)
 - [Bouncers][bouncers] are standalone software pieces in charge of acting upon a decision taken by crowdsec : block an IP, present a captcha, enforce MFA on a given user, etc.
@@ -31,12 +31,12 @@ N/A
 
 There are common role variables and service specific ones. Most variables should be fine (as tested). Thus it's recommended to only define these variables
 
-|Parameter|Description|Default Value|
-|---------|-----------|-------------|
-|`cs_install_agent`|Whether to install the crowdsec agent|`true`|
-|`cs_agent_version`|Version of the crowdsec agent to install|`v1.0.13`|
-|`cs_bouncers`|Dictionary of bouncers to be installed|`-`|
-|`cs_console_token`|Token to register instance in [Crowdstrike Console](https://app.crowdsec.net)|`-`|
+| Parameter          | Description                                                                   | Default Value |
+| ------------------ | ----------------------------------------------------------------------------- | ------------- |
+| `cs_install_agent` | Whether to install the crowdsec agent                                         | `true`        |
+| `cs_agent_version` | Version of the crowdsec agent to install                                      | `v1.0.13`     |
+| `cs_bouncers`      | Dictionary of bouncers to be installed                                        | `-`           |
+| `cs_console_token` | Token to register instance in [Crowdstrike Console](https://app.crowdsec.net) | `-`           |
 
 ### Bouncers
 
@@ -108,15 +108,15 @@ Written by [Papanito](https://wyssmann.com) - [Gitlab](https://gitlab.com/papani
 [crowdsec-git]: https://github.com/crowdsecurity/crowdsec
 [crowdsec-hub]: https://hub.crowdsec.net/
 [installation]: https://doc.crowdsec.net/Crowdsec/v1/getting_started/installation/#
-[csli alerts]: https://docs.crowdsec.net/Crowdsec/v1/cscli/cscli_alerts/
-[bouncers]: https://docs.crowdsec.net/Crowdsec/v1/bouncers/
-[cscli bouncers]: https://docs.crowdsec.net/Crowdsec/v1/cscli/cscli_bouncers/
-[collections]: https://docs.crowdsec.net/v1.X/docs/references/collections/
-[cscli collections]: https://docs.crowdsec.net/Crowdsec/v1/cscli/cscli_collections/
-[parsers]: https://docs.crowdsec.net/v0.3.X/docs/references/parsers/
-[cscli parsers]: https://docs.crowdsec.net/Crowdsec/v1/cscli/cscli_parsers/
-[decisions]: https://docs.crowdsec.net/v1.X/docs/references/decisions/
+[csli alerts]: https://docs.crowdsec.net/docs/cscli/cscli_alerts/
+[bouncers]: https://docs.crowdsec.net/docs/bouncers/intro/
+[cscli bouncers]: https://docs.crowdsec.net/docs/cscli/cscli_bouncers/
+[collections]: https://docs.crowdsec.net/docs/collections/intro
+[cscli collections]: https://docs.crowdsec.net/docs/cscli/cscli_collections/
+[parsers]: https://docs.crowdsec.net/docs/parsers/intro/
+[cscli parsers]: https://docs.crowdsec.net/docs/cscli/cscli_parsers/
+[decisions]: https://docs.crowdsec.net/docs/decisions/intro/
 [Decision object documentation]: https://pkg.go.dev/github.com/crowdsecurity/crowdsec/pkg/models#Decision
-[cscli decisions]: https://docs.crowdsec.net/Crowdsec/v1/cscli/cscli_decisions/
-[postoverflows]: https://docs.crowdsec.net/Crowdsec/v1/getting_started/concepts/#postoverflows
-[cscli postoverflows]: https://docs.crowdsec.net/Crowdsec/v1/cscli/cscli_postoverflows/
+[cscli decisions]: https://docs.crowdsec.net/docs/cscli/cscli_decisions/
+[postoverflows]: https://docs.crowdsec.net/docs/parsers/intro/#postoverflows
+[cscli postoverflows]: https://docs.crowdsec.net/docs/cscli/cscli_postoverflows/
