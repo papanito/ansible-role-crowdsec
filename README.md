@@ -42,7 +42,7 @@ There are common role variables and service specific ones. Most variables should
 
 The installation process for [bouncers] differs. Thus
 
-- for debian or rhel install the bouncer from the repo (if awailable)
+- for debian or rhel install the bouncer from the repo (if available)
 - for any other case install from tarball, which are usually installed as follows
 
    ```bash
