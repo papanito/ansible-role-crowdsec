@@ -13,5 +13,5 @@
 #   when: bouncer_stat.stat.exists
 
 - name: Install bouncer {{ cs_bouncer }} (tarball)
-  debug:
+  ansible.builtin.debug:
     msg: "TBD"

@@ -12,7 +12,7 @@ compose:
   server_ipv4: ipv4
   server_ipv6: ipv6
 
-cache: yes
+cache: true
 cache_plugin: ansible.builtin.jsonfile
 cache_timeout: 7200
 cache_connection: /tmp/ansible/hcloud_inventory

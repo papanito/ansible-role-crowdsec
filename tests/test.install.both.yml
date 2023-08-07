@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
-  gather_facts: no
+  gather_facts: false
 
   pre_tasks:
   - name: Create a basic test server
@@ -66,7 +66,7 @@
     - role
 
 - hosts: localhost
-  gather_facts: no
+  gather_facts: false
   vars:
     stop_server: false
 

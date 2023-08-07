@@ -6,19 +6,20 @@ galaxy_info:
   company: wyssmann.com
   license: Apache
   issue_tracker_url: https://github.com/papanito/ansible-role-crowdsec/issues
+  github_branch: main
 
-  min_ansible_version: 2.0
+  min_ansible_version: "2.10"
 
   platforms:
-  - name: EL
-    versions:
-    - all
-  - name: Ubuntu
-    versions:
-    - all
-  - name: Debian
-    versions:
-    - all
+    - name: EL
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
 
   galaxy_tags:
     - security

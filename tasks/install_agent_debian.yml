@@ -1,18 +1,18 @@
-- name: add crowdsec apt-key
-  apt_key: 
+- name: Add crowdsec apt-key
+  ansible.builtin.apt_key:
     url: https://packagecloud.io/crowdsec/crowdsec/gpgkey
     state: present
 
 # https://packagecloud.io/crowdsec/crowdsec/install#manual-deb
-- name: add crowdsec apt repository
-  apt_repository: 
-    repo: deb https://packagecloud.io/crowdsec/crowdsec/{{ ansible_distribution|lower }}/ {{ ansible_distribution_release }} main
-    state: present 
+- name: Add crowdsec apt repository
+  ansible.builtin.apt_repository:
+    repo: deb https://packagecloud.io/crowdsec/crowdsec/{{ ansible_distribution | lower }}/ {{ ansible_distribution_release }} main
+    state: present
     filename: crowdsec
-    update_cache: yes
+    update_cache: true
 
-- name: install crowdsec
-  apt: 
+- name: Install crowdsec
+  ansible.builtin.apt:
     name: crowdsec
     state: present
-    update_cache: yes
+    update_cache: true

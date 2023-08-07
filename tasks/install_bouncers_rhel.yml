@@ -1,5 +1,5 @@
-- name: install bouncer {{ cs_bouncer.key }}
-  yum: 
+- name: Install bouncer {{ cs_bouncer.key }}
+  ansible.builtin.yum:
     name: "{{ cs_bouncers_official[cs_bouncer.key].deb }}"
     state: present
-    update_cache: yes
+    update_cache: true

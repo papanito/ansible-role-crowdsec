@@ -2,20 +2,20 @@
 # tasks file for papanito.crowdsec
 
 - name: Install crowdsec agent (Debian)
-  import_tasks: install_agent_debian.yml
-  when: cs_install_agent|bool == true and ansible_os_family == 'Debian'
+  ansible.builtin.import_tasks: install_agent_debian.yml
+  when: cs_install_agent|bool and ansible_os_family == 'Debian'
   tags:
     - agent
 
 - name: Install crowdsec agent (Enterprise Linux)
-  import_tasks: install_agent_rhel.yml
-  when: cs_install_agent|bool == true and ansible_os_family == 'RedHat'
+  ansible.builtin.import_tasks: install_agent_rhel.yml
+  when: cs_install_agent|bool and ansible_os_family == 'RedHat'
   tags:
     - agent
 
 - name: Install crowdsec agent (tarball)
-  import_tasks: install_agent_tarball.yml
-  when: cs_install_agent|bool == true and ansible_os_family != 'Debian' and ansible_os_family != 'RedHat'
+  ansible.builtin.import_tasks: install_agent_tarball.yml
+  when: cs_install_agent|bool and ansible_os_family != 'Debian' and ansible_os_family != 'RedHat'
   tags:
     - agent
 
@@ -26,7 +26,7 @@
     - console
 
 - name: Install bouncers (Debian)
-  include_tasks: install_bouncers_debian.yml
+  ansible.builtin.include_tasks: install_bouncers_debian.yml
   loop: "{{ cs_bouncers | dict2items }}"
   loop_control:
     loop_var: cs_bouncer
@@ -35,7 +35,7 @@
     - bouncers
 
 - name: Install bouncers (RedHat)
-  include_tasks: install_bouncers_rhel.yml
+  ansible.builtin.include_tasks: install_bouncers_rhel.yml
   loop: "{{ cs_bouncers | dict2items }}"
   loop_control:
     loop_var: cs_bouncer
@@ -44,7 +44,7 @@
     - bouncers
 
 - name: Install bouncers (tarball)
-  include_tasks: install_bouncers_tarball.yml
+  ansible.builtin.include_tasks: install_bouncers_tarball.yml
   loop: "{{ cs_bouncers | dict2items }}"
   loop_control:
     loop_var: cs_bouncer

@@ -14,7 +14,7 @@ cs_bouncers_official:
     base_url: https://github.com/crowdsecurity/cs-firewall-bouncer/releases/download/
     tarball: cs-firewall-bouncer.tgz
     deb: crowdsec-firewall-bouncer-nftables
-    dnf: crowdsec-firewall-bouncer-nftables
+    ansible.builtin.dnf: crowdsec-firewall-bouncer-nftables
   cs-nginx-bouncer:
     base_url: https://github.com/crowdsecurity/cs-nginx-bouncer/releases/download/
     tarball: cs-nginx-bouncer.tgz
@@ -23,4 +23,4 @@ cs_bouncers_official:
     base_url: https://github.com/crowdsecurity/cs-custom-bouncer/releases/download/
     tarball: cs-custom-bouncer.tgz
     deb: crowdsec-custom-bouncer
-    dnf: crowdsec-custom-bouncer
+    ansible.builtin.dnf: crowdsec-custom-bouncer

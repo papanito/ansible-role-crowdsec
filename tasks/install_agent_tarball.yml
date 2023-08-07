@@ -16,8 +16,8 @@
   ansible.builtin.unarchive:
     src: "{{ cs_download_baseurl }}/{{ cs_agent_version }}/{{ cs_tarball }}"
     dest: "{{ cs_install_target_dir }}"
-    keep_newer: yes
-    remote_src: yes
+    keep_newer: true
+    remote_src: true
   when: not crowdsec_stat.stat.exists # or version differs
 
 - name: Install crowdsec in unattended mode
